@@ -2154,7 +2154,7 @@ export const ordersData = [
     Status: 'active',
     StatusBg: '#03C9D7',
     ProductImage:
-      product7,
+      product8,
   },
   {
     OrderID: 893486,
