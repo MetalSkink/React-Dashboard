@@ -8,19 +8,19 @@ import {Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kan
 import { useStateContext } from './contexts/ContextProvider';
 
 const App = () => {
-  const { activeMenu } = useStateContext();
+  const { activeMenu, themeSettings, setThemeSettings, currentColor, currentMode } = useStateContext();
   useEffect(() => {
     
   }, [])
   
   return (
-    <div>
+    <div className={currentMode === 'Dark' ? 'dark' : ''}>
       <BrowserRouter>
         <div className='flex relative dark:bg-main-dark-bg'>
           <div className='fixed right-4 bottom-4' style={{zIndex: '1000'}}>
             <TooltipComponent content="Settings" position='Top'>
               <button type='button' className='text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white' 
-                      style={{background: 'blue', borderRadius: '50%'}}>
+                      style={{background: currentColor, borderRadius: '50%'}} onClick={() => setThemeSettings(true)}>
                 <FiSettings />
               </button>
             </TooltipComponent>
@@ -41,6 +41,7 @@ const App = () => {
               <Navbar/>
             </div>
           <div>
+            { themeSettings && <ThemeSettings/>}
             <Routes>
               {/* dashboard */}
               <Route path="/" element={<Ecommerce/>}/>
@@ -63,8 +64,10 @@ const App = () => {
               <Route path="/color-mapping" element={<ColorMapping/>}/>
               <Route path="/pyramid" element={<Pyramid/>}/>
               <Route path="/stacked" element={<Stacked/>}/>
+              <Route path="/*" element={<Ecommerce/>}/>
             </Routes>
             </div>
+            <Footer />
           </div>
         </div>
       </BrowserRouter>
