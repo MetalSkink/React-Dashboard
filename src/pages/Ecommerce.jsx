@@ -9,9 +9,15 @@ import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropd
 import { useStateContext } from '../contexts/ContextProvider';
 import product9 from '../data/product9.jpg';
 
-const Ecommerce = () => {
+const DropDown = ({ currentMode }) => (
+  <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
+    <DropDownListComponent id="time" fields={{ text: 'Time', value: 'Id' }} style={{ border: 'none', color: (currentMode === 'Dark') && 'white' }} value="1" dataSource={dropdownData} popupHeight="220px" popupWidth="120px" />
+  </div>
+);
 
-  const { currentColor } = useStateContext();
+
+const Ecommerce = () => {
+  const { currentColor, currentMode } = useStateContext();
 
   return (
     <div className='mt-24'>
@@ -107,6 +113,40 @@ const Ecommerce = () => {
             </div>
           </div>    
         </div>
+        <div>
+          <div className=" rounded-2xl md:w-400 p-4 m-3" style={{ backgroundColor: currentColor }}>
+            <div className="flex justify-between items-center">
+              <p className="font-semibold text-white text-2xl">Earnings</p>
+              <div>
+                <p className="text-2xl text-white font-semibold mt-8">$63,448.78</p>
+                <p className="text-gray-200">Monthly revenue</p>
+              </div>
+            </div>
+            <div className="mt-4">
+              <SparkLine currentColor={currentColor} id="column-sparkLine" height="100px" type="Column" data={SparklineAreaData} width="320" color="rgb(242, 252, 253)" />
+            </div>
+          </div>
+          <div>
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl md:w-400 p-8 m-3 flex justify-center items-center gap-10">
+            <div>
+              <p className="text-2xl font-semibold ">$43,246</p>
+              <p className="text-gray-400">Yearly sales</p>
+            </div>
+            <div className="w-40">
+              <Pie id="pie-chart" data={ecomPieChartData} legendVisiblity={false} height="160px" />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <div className="flex gap-10 m-4 flex-wrap justify-center">
+        <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl">
+        <div className="flex justify-between items-center gap-2">
+            <p className="text-xl font-semibold">Recent Transactions</p>
+            <DropDown currentMode={currentMode} />
+          </div>
+
+        </div>
+      </div> */}
       </div>
     </div>
   )
